@@ -1,0 +1,40 @@
+public class PricebookExt {
+	public List<PricebookEntry> productList = new List<PricebookEntry>();
+    public PricebookEntry entry;
+    public Boolean IsReady = false;
+    public integer total_products;
+
+	public PricebookExt(ApexPages.StandardController stdController) {
+      	this.entry = (PricebookEntry)stdController.getRecord();
+    }    
+    
+    public PageReference fetchProducts(){
+        this.isReady = true;
+        System.debug( 'Pricebook id: ' + entry.Pricebook2Id );
+        return new PageReference(ApexPages.currentPage().getUrl() + '?' +'id='+ entry.Pricebook2Id);
+
+    }
+    public Boolean getIsReady(){
+        
+        return this.IsReady;
+    }
+    public List<PricebookEntry> getProductList(){        
+        try{
+            this.productList = [select Name, Product2Id, ProductCode, UnitPrice from PricebookEntry WHERE Pricebook2Id = :this.entry.Pricebook2Id];
+            this.total_products = productList.size();
+            return this.productList;
+        }
+        
+        catch (QueryException e) {
+            System.debug('Query Error : ' + e);
+                return null;
+        }
+        
+    }
+    
+    public Integer getTotal_products() {
+      return this.total_products;
+   }
+
+    
+}
