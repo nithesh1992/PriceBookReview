@@ -1,0 +1,64 @@
+<apex:page standardController="PricebookEntry" extensions="PricebookExt" showHeader="false" sidebar="false">
+    
+    <html>
+        <head>
+            <meta charset="utf-8" />
+            <meta http-equiv="x-ua-compatible" content="ie=edge" />
+            <title>PriceBook Review</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1" />                      
+            <apex:slds />  <!-- SLDS style sheet -->
+            <style>
+                .lookupicon a { 
+                border: none !important;
+                width: 60px !important ;
+                }
+            </style>
+        </head>
+        
+        <body>                        
+            <div class="slds-scope"> 
+                
+                <div class="slds-page-header">                    
+                    <div class="slds-grid">                                               
+                        <div class="slds-col">                            
+                            <h1 class="slds-page-header__title" title="Review">PRICE BOOK REVIEW</h1>
+                        </div>  
+                    </div>
+                </div>
+                <br/>
+                
+                <div class="slds-grid">
+                    <div class="slds-col slds-m-left--medium">
+                        <h1 class="slds-text-title--caps">Price Book Lookup:</h1>
+                    </div>                                      
+                </div>
+                
+                
+                <div class="slds-p-horizontal--small slds-grid">
+                    <apex:form styleClass="lookupicon" >
+                        <apex:inputField id="pricebook" styleClass="slds-form-element slds-lookup slds-input" value="{!PricebookEntry.Pricebook2Id}" />                      
+                        
+                        <div class = "slds-button-group">
+                            <apex:commandButton styleClass="slds-button slds-button--neutral" value="Get Products" action="{!fetchProducts}"/>
+                        </div>
+                        <br/>                        
+                    </apex:form>          
+                </div>
+                <br/>
+                <div class="slds-m-left--medium slds-container--large">                                                              
+                    <apex:pageBlock mode="maindetail" rendered="{!IsReady}"> 
+                        <div class="slds-text-heading--medium"> <b>Product List</b> </div>
+                        
+                        <apex:outputText value="{!Total_products}"> Total Items :  </apex:outputText>
+                        <br/>
+                        <apex:pageBlockTable styleClass="slds-table slds-table--bordered slds-table--cell-buffer slds-no-row-hover" value="{!ProductList}" var="product">
+                            <apex:column styleClass="slds-truncate" value="{!product.Name}"/>
+                            <apex:column styleClass="slds-truncate" value="{!product.ProductCode}"/>
+                            <apex:column styleClass="slds-truncate" value="{!product.UnitPrice}"/>
+                        </apex:pageBlockTable>                
+                    </apex:pageBlock>
+                </div>
+            </div>
+        </body>
+    </html>
+</apex:page>
