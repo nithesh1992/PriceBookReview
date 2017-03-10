@@ -1,2 +1,2 @@
 # PriceBookReview
-visualforce page having pricebook as field when i select one price book it will display all products which are having these  price book  along with prices.
+Contains Visualforce page having pricebook as a Lookup field. When a Pricebook is selected, it will display all products which belong to this pricebook along with prices.
